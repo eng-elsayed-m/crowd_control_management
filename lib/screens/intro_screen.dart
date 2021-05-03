@@ -1,5 +1,7 @@
+import 'package:crowd_control_management/models/http_exception.dart';
+import 'package:crowd_control_management/providers/auth.dart';
 import 'package:flutter/material.dart';
-import '../screens/home_screen.dart';
+import 'package:provider/provider.dart';
 import '../screens/register_screen.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -9,6 +11,63 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  Map<String, String> _authData = {"email": "", "password": ""};
+  final _inputDeco = InputDecoration(
+    fillColor: Colors.white,
+    contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+    filled: true,
+  );
+  bool _loading = false;
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    FocusScope.of(context).unfocus();
+    _formKey.currentState.save();
+    setState(() {
+      _loading = true;
+    });
+    try {
+      await Provider.of<Auth>(context, listen: false)
+          .login(_authData['email'], _authData["password"]);
+    } on HttpException catch (error) {
+      var errorMessage = "Authentication faild";
+      if (error.toString().contains("EMAIL_EXISTS")) {
+        errorMessage = "This email address is already in use.";
+      } else if (error.toString().contains("INVALID_EMAIL")) {
+        errorMessage = "This email is not valid.";
+      } else if (error.toString().contains("WEAK_PASSWORD")) {
+        errorMessage = "This password is too weak.";
+      } else if (error.toString().contains("EMAIL_NOT_FOUND")) {
+        errorMessage = "Couldn't find a user with that email.";
+      } else if (error.toString().contains("INVALID_PASSWORD")) {
+        errorMessage = "Invalid password.";
+      }
+      _showErrorDialog(errorMessage);
+    } catch (e) {
+      const errorMessage = "Check your internet connection . then try again";
+      _showErrorDialog(errorMessage);
+    }
+  }
+
+  void _showErrorDialog(String errorMessage) {
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+              title: Text("Some thing !"),
+              content: Text(errorMessage),
+              actions: [
+                TextButton(
+                  child: Text("Try again"),
+                  onPressed: () => Navigator.of(ctx).pop(),
+                )
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -55,82 +114,94 @@ class _IntroScreenState extends State<IntroScreen> {
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 50.0, left: 20, right: 20),
-                child: LoginForm(),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        style: TextStyle(
+                            color: Colors.lightBlueAccent, fontSize: 20),
+                        decoration: _inputDeco.copyWith(
+                            prefixIcon: Icon(Icons.email), labelText: "البريد"),
+                        validator: (email) {
+                          if (email.isEmpty || !email.contains("@")) {
+                            return "البريد خاطئ";
+                          }
+                          return null;
+                        },
+                        onSaved: (val) {
+                          _authData['email'] = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        style: TextStyle(
+                            color: Colors.lightBlueAccent, fontSize: 20),
+                        obscureText: true,
+                        decoration: _inputDeco.copyWith(
+                          prefixIcon: Icon(Icons.lock),
+                          labelText: "كلمة المرور",
+                        ),
+                        validator: (password) {
+                          if (password.isEmpty || password.length < 8) {
+                            return "يجب ان تتكون كلمة السر اكثر من 8 خانات";
+                          }
+                          return null;
+                        },
+                        onSaved: (val) {
+                          _authData['password'] = val;
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      _loading
+                          ? CircularProgressIndicator()
+                          : ElevatedButton(
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                          side: BorderSide(
+                                              color: Colors.lightBlueAccent))),
+                                  minimumSize: MaterialStateProperty.all(
+                                    Size(230, 30),
+                                  )),
+                              onPressed: _submit,
+                              child: Text(
+                                "تسجيل الدخول",
+                              )),
+                      Spacer(),
+                      TextButton(
+                        child: Text("نسيت كلمة المرور ؟"),
+                        onPressed: () {},
+                      ),
+                      Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("ليس لديك حساب ؟"),
+                          TextButton(
+                            child: Text(
+                              "انشاء حساب",
+                              style: TextStyle(color: Colors.lightBlueAccent),
+                            ),
+                            onPressed: () => Navigator.of(context)
+                                .pushNamed(RegisterScreen.navN),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ))
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LoginForm extends StatelessWidget {
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  final _inputDeco = InputDecoration(
-    fillColor: Colors.white,
-    contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-    filled: true,
-  );
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-              style: TextStyle(color: Colors.lightBlueAccent, fontSize: 20),
-              decoration: _inputDeco.copyWith(
-                  prefixIcon: Icon(Icons.email), labelText: "البريد")),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            style: TextStyle(color: Colors.lightBlueAccent, fontSize: 20),
-            obscureText: true,
-            decoration: _inputDeco.copyWith(
-              prefixIcon: Icon(Icons.lock),
-              labelText: "كلمة المرور",
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextButton(
-            child: Text("نسيت كلمة المرور ؟"),
-            onPressed: () {},
-          ),
-          Spacer(),
-          ElevatedButton(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.lightBlueAccent))),
-                  minimumSize: MaterialStateProperty.all(
-                    Size(230, 25),
-                  )),
-              onPressed: () => Navigator.of(context).pushNamed(HomeScreen.navN),
-              child: Text(
-                "تسجيل الدخول",
-              )),
-          Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("ليس لديك حساب ؟"),
-              TextButton(
-                child: Text(
-                  "انشاء حساب",
-                  style: TextStyle(color: Colors.lightBlueAccent),
-                ),
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(RegisterScreen.navN),
-              )
-            ],
-          )
-        ],
       ),
     );
   }

@@ -1,4 +1,6 @@
+import 'package:crowd_control_management/providers/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatelessWidget {
   @override
@@ -39,7 +41,9 @@ class HomeWidget extends StatelessWidget {
               color: Colors.cyan[100],
               child: ListTile(
                 leading: ElevatedButton(
-                    onPressed: () {}, child: Text("عرض النتائج")),
+                    onPressed: () =>
+                        Provider.of<Auth>(context, listen: false).logout(),
+                    child: Text("عرض النتائج")),
                 title: Text("عنوان المنزل"),
                 trailing: Icon(Icons.home),
                 minLeadingWidth: 180,
