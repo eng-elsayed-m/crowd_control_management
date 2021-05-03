@@ -41,7 +41,7 @@ class Auth with ChangeNotifier {
           body: json.encode({
             "email": email,
             "password": password,
-            "returnSecureToken": true
+            "returnSecureToken": true,
           }));
       final responseData = json.decode(response.body);
       if (responseData['error'] != null) {
