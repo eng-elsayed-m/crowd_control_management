@@ -1,3 +1,4 @@
+import 'package:crowd_control_management/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class MyPermissionScreen extends StatefulWidget {
@@ -12,8 +13,11 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    final trans = AppLocalizations.of(context).translate;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(trans("My permission")),
+      ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Container(
@@ -34,31 +38,28 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                               : deviceSize.height * 0.5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Colors.grey.shade400,
+                        color: Theme.of(context).primaryColorLight,
                       )),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  _near = false;
-                                });
-                              },
-                              child: Text("طلب تصريح خارجى")),
-                          SizedBox(
-                            width: 50,
-                          ),
                           ElevatedButton(
                               onPressed: () {
                                 setState(() {
                                   _near = true;
                                 });
                               },
-                              child: Text("طلب تصريح داخلى")),
+                              child: Text(trans("Request in permission"))),
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _near = false;
+                                });
+                              },
+                              child: Text(trans("Request out permission"))),
                         ],
                       ),
                       Container(
@@ -92,10 +93,12 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                                           color: Colors.amber,
                                         ),
                                         Text(
-                                          "عدد ساعات تجولك الشخصى 4 ساعات",
+                                          trans("Allowed Duration"),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6,
+                                              .subtitle1,
+                                          softWrap: true,
+                                          textWidthBasis: TextWidthBasis.parent,
                                         ),
                                       ],
                                     ),
@@ -140,20 +143,20 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                                           ],
                                         ),
                                         Text(
-                                          "ثلاثة اشخاص حد اقصى",
+                                          trans("Three persons at max"),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6,
+                                              .subtitle1,
                                         ),
                                       ],
                                     ),
                                     ListTile(
                                       contentPadding:
                                           EdgeInsets.symmetric(horizontal: 30),
-                                      title: Text("المكان المراد التوجه اليه"),
+                                      title: Text(trans("Destinaion")),
                                       trailing: TextButton(
                                         child: Text(
-                                          "تحديد",
+                                          trans("Select"),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5
@@ -168,7 +171,7 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                                 )),
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text("طلب التصريح"),
+                        child: Text(trans("Request the permission")),
                         style: ButtonStyle(
                             shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(

@@ -1,13 +1,15 @@
+import 'package:crowd_control_management/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class PartnersScreen extends StatelessWidget {
   static const navN = "partners-screen";
   @override
   Widget build(BuildContext context) {
+    final trans = AppLocalizations.of(context).translate;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "شركاء النجاح",
+          trans("Success partners"),
         ),
       ),
       body: Column(
@@ -16,10 +18,17 @@ class PartnersScreen extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Text(
-            "نتقدم بالشكر الى كل من ساهم و شارك فى نجاح هذا التطبيق الذى يهتم بصحة المواطن اولا ثم نظام ناجح يؤدى الى توخى الحذر",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
+          Card(
+            elevation: 5,
+            color: Theme.of(context).primaryColorLight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: Text(
+                trans("Thanks"),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
@@ -27,28 +36,30 @@ class PartnersScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "وزارة الداخليه -",
-                  textAlign: TextAlign.right,
+                  trans("MIA"),
                 ),
                 Text(
-                  "وزارة الصحه -",
-                  textAlign: TextAlign.right,
+                  trans("MH"),
                 ),
                 Text(
-                  " هيئة الاحوال المدنيه -",
-                  textAlign: TextAlign.right,
+                  trans("CSA"),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Text(
-                  "نسال الله ان تمر هذه الازمه",
-                  textAlign: TextAlign.right,
+                  trans("Pray"),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
           ),
-          Center(
-            child: Image.asset(
-              "assets/images/ccm_logo.png",
-              fit: BoxFit.contain,
+          Flexible(
+            child: Center(
+              child: Image.asset(
+                "assets/images/ccm_logo.png",
+                fit: BoxFit.contain,
+              ),
             ),
           )
         ],

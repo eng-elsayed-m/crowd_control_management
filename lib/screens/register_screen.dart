@@ -1,3 +1,4 @@
+import 'package:crowd_control_management/app_localizations.dart';
 import 'package:crowd_control_management/models/http_exception.dart';
 import 'package:crowd_control_management/providers/auth.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _inputDeco = InputDecoration(
     hintStyle: TextStyle(fontSize: 15),
-    hintTextDirection: TextDirection.rtl,
     contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
   );
@@ -91,6 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    final trans = AppLocalizations.of(context).translate;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -115,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "انشاء حساب",
+                        trans("Create account"),
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
@@ -141,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               TextFormField(
                                 style: _textFieldStyle,
                                 decoration: _inputDeco.copyWith(
-                                    hintText: "الاسم",
+                                    hintText: trans("Name"),
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: Colors.lightBlueAccent,
@@ -160,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 keyboardType: TextInputType.emailAddress,
                                 style: _textFieldStyle,
                                 decoration: _inputDeco.copyWith(
-                                  hintText: "البريد",
+                                  hintText: trans("Email"),
                                   prefixIcon: Icon(
                                     Icons.email,
                                     color: Colors.lightBlueAccent,
@@ -168,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 validator: (email) {
                                   if (email.isEmpty || !email.contains("@")) {
-                                    return "البريد خاطئ";
+                                    return trans("Invalid email");
                                   }
                                   return null;
                                 },
@@ -180,14 +181,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 obscureText: true,
                                 style: _textFieldStyle,
                                 decoration: _inputDeco.copyWith(
-                                    hintText: "كلمة السر ",
+                                    hintText: trans("Password"),
                                     prefixIcon: Icon(
                                       Icons.lock,
                                       color: Colors.lightBlueAccent,
                                     )),
                                 validator: (password) {
                                   if (password.isEmpty || password.length < 8) {
-                                    return "يجب ان تتكون كلمة السر اكثر من 8 خانات";
+                                    return trans("Short password");
                                   }
                                   return null;
                                 },
@@ -199,14 +200,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 keyboardType: TextInputType.number,
                                 style: _textFieldStyle,
                                 decoration: _inputDeco.copyWith(
-                                    hintText: "رقم البطاقه الشخصيه ",
+                                    hintText: trans("Identity number"),
                                     prefixIcon: Icon(
                                       Icons.badge,
                                       color: Colors.lightBlueAccent,
                                     )),
                                 validator: (id) {
                                   if (id.isEmpty || id.length < 14) {
-                                    return "رقم البطاقه خاطئ";
+                                    return trans("Invalid identity number");
                                   }
                                   return null;
                                 },
@@ -218,14 +219,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 keyboardType: TextInputType.phone,
                                 style: _textFieldStyle,
                                 decoration: _inputDeco.copyWith(
-                                    hintText: "رقم الموبايل",
+                                    hintText: trans("Mobile"),
                                     prefixIcon: Icon(
                                       Icons.mobile_friendly,
                                       color: Colors.lightBlueAccent,
                                     )),
                                 validator: (number) {
                                   if (number.isEmpty || number.length < 11) {
-                                    return "رقم الهاتف غير صحيح ";
+                                    return trans("Invalid phone");
                                   }
                                   return null;
                                 },
@@ -236,14 +237,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               TextFormField(
                                 style: _textFieldStyle,
                                 decoration: _inputDeco.copyWith(
-                                    hintText: "فصيلة الدم",
+                                    hintText: trans("Blood type"),
                                     prefixIcon: Icon(
                                       Icons.filter_vintage_outlined,
                                       color: Colors.lightBlueAccent,
                                     )),
                                 validator: (blood) {
                                   if (blood.isEmpty || blood.length > 4) {
-                                    return "ادخل فصيلة دم صحيحه";
+                                    return trans("Invalid type");
                                   }
                                   return null;
                                 },
@@ -275,7 +276,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         tapTargetSize:
                                             MaterialTapTargetSize.shrinkWrap),
                                   ),
-                                  Text("تاريخ الميلاد")
+                                  Text(trans("Birth date"))
                                 ],
                               ),
                             ],
@@ -293,7 +294,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   : ElevatedButton(
                       onPressed: () => _submit()
                           .then((value) => Navigator.of(context).pop()),
-                      child: Text("تسجيل"),
+                      child: Text("Create account"),
                       style: ButtonStyle(
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(

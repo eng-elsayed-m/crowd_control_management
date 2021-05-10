@@ -1,3 +1,4 @@
+import 'package:crowd_control_management/app_localizations.dart';
 import 'package:crowd_control_management/models/http_exception.dart';
 import 'package:crowd_control_management/providers/auth.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,9 @@ class _IntroScreenState extends State<IntroScreen> {
       const errorMessage = "Check your internet connection . then try again";
       _showErrorDialog(errorMessage);
     }
+    setState(() {
+      _loading = false;
+    });
   }
 
   void _showErrorDialog(String errorMessage) {
@@ -71,7 +75,7 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
+    final trans = AppLocalizations.of(context).translate;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -97,20 +101,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       "assets/images/ccm_logo.png",
                       fit: BoxFit.contain,
                     ),
-                  )
-                  // Padding(
-                  //   padding: EdgeInsets.only(
-                  //       left: deviceSize.width * 0.52,
-                  //       top: deviceSize.height * 0.31),
-                  //   child: Text(
-                  //     "تسجيل الدخول",
-                  //     style: TextStyle(
-                  //         fontSize: 25,
-                  //         color: Colors.white60,
-                  //         fontWeight: FontWeight.bold),
-                  //   ),
-                  // ),
-                  ),
+                  )),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.only(top: 50.0, left: 20, right: 20),
@@ -122,10 +113,11 @@ class _IntroScreenState extends State<IntroScreen> {
                         style: TextStyle(
                             color: Colors.lightBlueAccent, fontSize: 20),
                         decoration: _inputDeco.copyWith(
-                            prefixIcon: Icon(Icons.email), labelText: "البريد"),
+                            prefixIcon: Icon(Icons.email),
+                            labelText: trans("Email")),
                         validator: (email) {
                           if (email.isEmpty || !email.contains("@")) {
-                            return "البريد خاطئ";
+                            return trans("Invalid email");
                           }
                           return null;
                         },
@@ -142,11 +134,12 @@ class _IntroScreenState extends State<IntroScreen> {
                         obscureText: true,
                         decoration: _inputDeco.copyWith(
                           prefixIcon: Icon(Icons.lock),
-                          labelText: "كلمة المرور",
+                          labelText: AppLocalizations.of(context)
+                              .translate("Password"),
                         ),
                         validator: (password) {
                           if (password.isEmpty || password.length < 8) {
-                            return "يجب ان تتكون كلمة السر اكثر من 8 خانات";
+                            return trans("Short password");
                           }
                           return null;
                         },
@@ -155,7 +148,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         },
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       _loading
                           ? CircularProgressIndicator()
@@ -173,21 +166,21 @@ class _IntroScreenState extends State<IntroScreen> {
                                   )),
                               onPressed: _submit,
                               child: Text(
-                                "تسجيل الدخول",
+                                trans("SignIn"),
                               )),
                       Spacer(),
                       TextButton(
-                        child: Text("نسيت كلمة المرور ؟"),
+                        child: Text(trans("Forget password")),
                         onPressed: () {},
                       ),
                       Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("ليس لديك حساب ؟"),
+                          Text(trans("Don't have account")),
                           TextButton(
                             child: Text(
-                              "انشاء حساب",
+                              trans("Create account"),
                               style: TextStyle(color: Colors.lightBlueAccent),
                             ),
                             onPressed: () => Navigator.of(context)

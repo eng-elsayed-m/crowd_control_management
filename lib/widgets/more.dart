@@ -1,8 +1,10 @@
+import 'package:crowd_control_management/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class MoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final trans = AppLocalizations.of(context).translate;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -16,39 +18,39 @@ class MoreWidget extends StatelessWidget {
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: ElevatedButton(
+                      leading: Text(trans("Analysis lab")),
+                      trailing: ElevatedButton(
                           onPressed: () =>
                               Navigator.of(context).pushNamed("lab-screen"),
-                          child: Text("الحجز")),
-                      trailing: Text("معمل التحاليل"),
+                          child: Text(trans("Reservation"))),
                     )),
                 Card(
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: ElevatedButton(
+                      leading: Text(trans("Success Partners")),
+                      trailing: ElevatedButton(
                           onPressed: () => Navigator.of(context)
                               .pushNamed("partners-screen"),
-                          child: Text("القراءه")),
-                      trailing: Text("شركاء النجاح"),
+                          child: Text(trans("Read"))),
                     )),
                 Card(
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: ElevatedButton(
+                      leading: Text(trans("Health information")),
+                      trailing: ElevatedButton(
                           onPressed: () => Navigator.of(context)
                               .pushNamed("medical-info-screen"),
-                          child: Text("القراءه")),
-                      trailing: Text("معلومات صحيه"),
+                          child: Text(trans("Read"))),
                     )),
                 Card(
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: ElevatedButton(
-                          onPressed: () {}, child: Text("الاتصال بنا")),
-                      trailing: Text("المساعده"),
+                      leading: Text(trans("Help")),
+                      trailing: ElevatedButton(
+                          onPressed: () {}, child: Text(trans("Contact us"))),
                     )),
               ],
             ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../app_localizations.dart';
+
 class PermissionWidget extends StatelessWidget {
   final _buttonStyle = ButtonStyle(
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -11,6 +13,8 @@ class PermissionWidget extends StatelessWidget {
       ));
   @override
   Widget build(BuildContext context) {
+    final trans = AppLocalizations.of(context).translate;
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -20,22 +24,24 @@ class PermissionWidget extends StatelessWidget {
             size: 150,
             color: Colors.cyan[200],
           ),
-          Flexible(
-              child: Text(
-            "لان سلامتكم تهمنا لا ينصح بمغادرة المنزل الا للضروره القصوى خلال فترة الحظر",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          )),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            child: Text(
+              trans("Safety message"),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+          ),
           ElevatedButton(
             onPressed: () =>
                 Navigator.of(context).pushNamed("mypermission-screen"),
-            child: Text("طلب تصريح"),
+            child: Text(trans("Request a permit")),
             style: _buttonStyle,
           ),
           ElevatedButton(
             onPressed: () =>
                 Navigator.of(context).pushNamed("otherpermission-screen"),
-            child: Text("طلب تصريح للغير"),
+            child: Text(trans("Request other permit")),
             style: _buttonStyle,
           )
         ],

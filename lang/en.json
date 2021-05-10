@@ -1,0 +1,113 @@
+{
+    "AuthenticationScreen" : "***********",
+
+    "Email" : "E-mail",
+    "Password" : "Password",
+    "Invalid email" : "Invalid email !",
+    "Invalid identity number": "Invalid identity number",
+    "Invalid phone" : "Invalid Phone number",
+    "Invalid type" : "Invalid type",
+    "Short password" : "Password should be more than 8 characters !",
+    "SignIn" : "SignIn",
+    "Forget password" : "Forget password ?",
+    "Don't have account" :"Don't have account ?",
+    "Create account" : "Create account",
+
+    "HomeScreen" : "************",
+
+    "Main": "Main",
+    "Have to request a permit": "You have to request a permit !",
+    "Request permit" :"Request permit",
+    "Report" : "Report",
+    "More": "More",
+    "Profile" : "Profile",
+
+    "PermissionScreen" : "**********",
+    "My permission" : "My Permission",
+    "Other permission" : "Other Permission",
+    "Request out permission" : "Request out permission",
+    "Request in permission" : "Request permission around",
+    "Allowed Duration" : "Personal Permission duration is 4 Hours ",
+    "Three persons at max" : "Three persons at maximum",
+    "Destinaion" :"Destinaion",
+    "Select" : "Select",
+    "Request the permission" : "Request the permission",
+
+    "LapScreen" : "****************",
+    
+    "Analytics Lab" : "Analytics Lab",
+    "Note": "🔔Because your health is important to us, stay in your home, book, analyze and receive the results while you are in your place",
+    "Request examination": "Request Examination",
+    "Book" :"Book",
+    "Get" : "Download",
+    "Receive analysis result" : "Receive analysis result",
+
+    "PartnersScreen" :"**************",
+
+    "Success partners" : "Success partners",
+    "Thanks" : "We extend our thanks to everyone who contributed and participated in the success of this application, which is concerned with the health of the citizen first and then a successful system that leads to caution.",
+    "MIA" : "- Ministry of Interior Affairs",
+    "MH" : "- Ministry of Health",
+    "CSA" : "- Civil Status Authority",
+    "Pray" : "We ask God to pass this crisis ove",
+
+    "MedicalInfoScreen" : "*************",
+    "Medical info" :"Medical info",
+    "Advice1" : "Contact the nearest hospital if you feel symptoms of Corona and isolate yourself until help arrives.",
+    "Advice2" : "Stay away from crowded places and maintain physical distancing.",
+    "Advice3" : "Use the Internet to get things as much as possible",
+    "Advice4" : "Avoid mixing",
+    "Advice5" : "Always use detergents and disinfectants and wear the mask",
+
+
+
+
+
+    
+    "HomeWidget" : "****************",
+
+    "Not allow to move around": "Y're not allowed to move around !",
+    "Need permission" : "Need permission !",
+    "Show results" : "Show results",
+    "Home address" : "Home address",
+
+
+
+
+    "PermissionWidget" : "***************",
+    
+    "Safety message" : "Because your safety is our concern, it is not recommended to leave the house during the curfew unless emergency", 
+    "Request a permit": "Request a permit",
+    "Request other permit" : "Request other permit",
+
+    "ReportWidget" : "****************",
+
+    "We are with u": "We are with you to face corona virus and Keep you and your beloved safe",
+    "Report emergency": "Report",
+    "Report case" : "Report of suffocation",
+    "Will sent a message" : "Send a message to the nearest hospital",
+
+    "ProfileWidget" : "************",
+
+    "Name":"Name",
+    "Blood type" : "Blood type",
+    "Identity number" : "Identity number",
+    "Birth date" : "Birth date",
+    "Mobile" : "Mobile number",
+    "Signout" : "Signout",
+
+    "MoreWidget" : "*************",
+
+    "Reservation":"Reservation",
+    "Analysis lab" : "Analysis lab",
+    "Read":"Read",
+    "Success Partners" : "Success Partners",
+    "Health information": "Health information",
+    "Help" : "Ask for help",
+    "Contact us" : "Contact us"
+
+
+
+
+
+}
