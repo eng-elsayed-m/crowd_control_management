@@ -48,20 +48,23 @@ class _IntroScreenState extends State<IntroScreen> {
         errorMessage = "Invalid password.";
       }
       _showErrorDialog(errorMessage);
+      setState(() {
+        _loading = false;
+      });
     } catch (e) {
       const errorMessage = "Check your internet connection . then try again";
       _showErrorDialog(errorMessage);
+      setState(() {
+        _loading = false;
+      });
     }
-    setState(() {
-      _loading = false;
-    });
   }
 
   void _showErrorDialog(String errorMessage) {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-              title: Text("Some thing !"),
+              title: Text("Some thing went wrong!"),
               content: Text(errorMessage),
               actions: [
                 TextButton(

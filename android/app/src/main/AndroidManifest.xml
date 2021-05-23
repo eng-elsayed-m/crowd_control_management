@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team.crowd_control_management">
+   <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="crowd_control_management"
+        android:label="CC-Management"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -34,16 +34,10 @@ class PermissionWidget extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () =>
-                Navigator.of(context).pushNamed("mypermission-screen"),
+                Navigator.of(context).pushNamed("permission_screen"),
             child: Text(trans("Request a permit")),
             style: _buttonStyle,
           ),
-          ElevatedButton(
-            onPressed: () =>
-                Navigator.of(context).pushNamed("otherpermission-screen"),
-            child: Text(trans("Request other permit")),
-            style: _buttonStyle,
-          )
         ],
       ),
     );

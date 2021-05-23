@@ -1,5 +1,8 @@
 import 'package:crowd_control_management/app_localizations.dart';
 import 'package:crowd_control_management/providers/auth.dart';
+import 'package:crowd_control_management/providers/location.dart';
+import 'package:crowd_control_management/providers/permission.dart';
+import 'package:crowd_control_management/screens/Permissions_screen.dart';
 import 'package:crowd_control_management/screens/lab_screen.dart';
 import 'package:crowd_control_management/screens/medical_info_screen.dart';
 import 'package:crowd_control_management/screens/partners_screen.dart';
@@ -19,8 +22,16 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: Auth(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => Auth()),
+        ChangeNotifierProvider(create: (ctx) => LocationP()),
+        ChangeNotifierProxyProvider<Auth, Permission>(
+          update: (ctx, auth, previousProducts) =>
+              Permission(auth.token, auth.userId),
+          create: null,
+        ),
+      ],
       builder: (context, child) => Consumer<Auth>(
         builder: (context, _auth, child) => MaterialApp(
           supportedLocales: [Locale("en", "US"), Locale("ar", "EG")],
@@ -74,6 +85,7 @@ class MyApp extends StatelessWidget {
             LabScreen.navN: (ctx) => LabScreen(),
             PartnersScreen.navN: (ctx) => PartnersScreen(),
             MedicalInfoScreen.navN: (ctx) => MedicalInfoScreen(),
+            PermissionScreen.navN: (ctx) => PermissionScreen(),
           },
         ),
       ),

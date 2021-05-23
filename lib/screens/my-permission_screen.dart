@@ -1,5 +1,11 @@
 import 'package:crowd_control_management/app_localizations.dart';
+import 'package:crowd_control_management/models/permission_form.dart';
+import 'package:crowd_control_management/providers/location.dart';
+import 'package:crowd_control_management/providers/permission.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong/latlong.dart';
+import 'package:provider/provider.dart';
 
 class MyPermissionScreen extends StatefulWidget {
   static const navN = "mypermission-screen";
@@ -8,8 +14,64 @@ class MyPermissionScreen extends StatefulWidget {
 }
 
 class _MyPermissionScreenState extends State<MyPermissionScreen> {
+  CircleMarker _zone = CircleMarker();
+  MapController _mapController = MapController();
   bool _near = true;
-  int _perNum = 1;
+  bool _loading = false;
+  LatLng location;
+  int pNum;
+
+  void _handleTap(LatLng latlng) {
+    location = latlng;
+    print(location.longitudeInRad);
+    setState(() {
+      _zone = CircleMarker(
+          point: latlng,
+          color: Colors.blue.withOpacity(0.7),
+          borderStrokeWidth: 2,
+          useRadiusInMeter: true,
+          radius: 500 // 2000 meters | 2 km
+          );
+    });
+  }
+
+  Future<void> requestPer() async {
+    setState(() {
+      _loading = true;
+    });
+    try {
+      await Provider.of<Permission>(context, listen: false).createPermission(
+        PermissionForm(
+            location: location,
+            pNum: pNum,
+            expiryTime: DateTime.now().add(Duration(seconds: 50))),
+      );
+      setState(() {
+        _loading = false;
+      });
+    } catch (e) {
+      _showErrorDialog(e.toString());
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  void _showErrorDialog(String errorMessage) {
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+              title: Text("Some thing went wrong!"),
+              content: Text(errorMessage),
+              actions: [
+                TextButton(
+                  child: Text("Try again"),
+                  onPressed: () => Navigator.of(ctx).pop(),
+                )
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -75,9 +137,46 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                             color: Colors.white70,
                           ),
                           child: _near
-                              ? Image.asset(
-                                  "assets/images/google-map.jpg",
-                                  fit: BoxFit.fitHeight,
+                              ? Consumer<LocationP>(
+                                  builder: (context, _loc, child) => Container(
+                                    color: Colors.black,
+                                    height: 320,
+                                    child: _loc.location == null
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : FlutterMap(
+                                            mapController: _mapController,
+                                            options: MapOptions(
+                                              center: LatLng(
+                                                  _loc.location.latitude,
+                                                  _loc.location.longitude),
+                                              zoom: 15.0,
+                                              onTap: _handleTap,
+                                            ),
+                                            layers: [
+                                              TileLayerOptions(
+                                                  urlTemplate:
+                                                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                                  subdomains: ['a', 'b', 'c']),
+                                              CircleLayerOptions(
+                                                circles: [_zone],
+                                              ),
+                                              MarkerLayerOptions(markers: [
+                                                Marker(
+                                                  point: LatLng(
+                                                      _loc.location.latitude,
+                                                      _loc.location.longitude),
+                                                  height: 120,
+                                                  width: 120,
+                                                  builder: (context) => Icon(
+                                                    Icons.home,
+                                                    color: Colors.green,
+                                                  ),
+                                                )
+                                              ])
+                                            ],
+                                          ),
+                                  ),
                                 )
                               : Column(
                                   mainAxisAlignment:
@@ -116,14 +215,14 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                                                   color: Colors.lightBlueAccent,
                                                 ),
                                                 onPressed: () {
-                                                  if (_perNum > 1) {
+                                                  if (pNum > 1) {
                                                     setState(() {
-                                                      _perNum--;
+                                                      pNum--;
                                                     });
                                                   }
                                                 }),
                                             Text(
-                                              _perNum.toString(),
+                                              pNum.toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline4,
@@ -134,9 +233,9 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                                                   color: Colors.lightBlueAccent,
                                                 ),
                                                 onPressed: () {
-                                                  if (_perNum < 3) {
+                                                  if (pNum < 3) {
                                                     setState(() {
-                                                      _perNum++;
+                                                      pNum++;
                                                     });
                                                   }
                                                 }),
@@ -169,20 +268,29 @@ class _MyPermissionScreenState extends State<MyPermissionScreen> {
                                     )
                                   ],
                                 )),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text(trans("Request the permission")),
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(
-                                        color: Colors.lightBlueAccent))),
-                            minimumSize: MaterialStateProperty.all(
-                              Size(230, 30),
-                            )),
-                      ),
+                      _loading
+                          ? SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator())
+                          : ElevatedButton(
+                              onPressed: () async {
+                                await requestPer();
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(trans("Request the permission")),
+                              style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                          side: BorderSide(
+                                              color: Colors.lightBlueAccent))),
+                                  minimumSize: MaterialStateProperty.all(
+                                    Size(230, 30),
+                                  )),
+                            ),
                     ],
                   )
                 ],
