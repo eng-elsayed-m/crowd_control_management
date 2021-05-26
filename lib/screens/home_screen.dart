@@ -1,4 +1,3 @@
-import 'package:crowd_control_management/app_localizations.dart';
 import 'package:crowd_control_management/providers/location.dart';
 import 'package:crowd_control_management/widgets/report.dart';
 import 'package:flutter/material.dart';
@@ -18,25 +17,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Widget _page = HomeWidget();
   GlobalKey _bottomNavigationKey = GlobalKey();
-  String _pageName = "";
-  Function trans;
-
-  @override
-  void didChangeDependencies() {
-    _pageName = AppLocalizations.of(context).translate("Main");
-    trans = AppLocalizations.of(context).translate;
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_pageName),
-        centerTitle: true,
-        toolbarHeight: 50,
-        automaticallyImplyLeading: false,
-      ),
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
         color: Colors.blueGrey,
@@ -57,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
               {
                 setState(() {
                   _page = HomeWidget();
-                  _pageName = trans("Main");
                 });
               }
               break;
@@ -66,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
               {
                 setState(() {
                   _page = PermissionWidget();
-                  _pageName = trans("Request permit");
                 });
               }
               break;
@@ -74,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
               {
                 setState(() {
                   _page = ReportWidget();
-                  _pageName = trans("Report");
                 });
               }
               break;
@@ -82,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
               {
                 setState(() {
                   _page = MoreWidget();
-                  _pageName = trans("More");
                 });
               }
               break;
@@ -90,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
               {
                 setState(() {
                   _page = ProfileWidget();
-                  _pageName = trans("Profile");
                 });
               }
               break;

@@ -11,8 +11,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import './screens/home_screen.dart';
 import './screens/intro_screen.dart';
-import './screens/my-permission_screen.dart';
-import './screens/other_permission_screen.dart';
 import './screens/register_screen.dart';
 
 void main() {
@@ -80,8 +78,6 @@ class MyApp extends StatelessWidget {
             IntroScreen.navN: (ctx) => IntroScreen(),
             RegisterScreen.navN: (ctx) => RegisterScreen(),
             HomeScreen.navN: (ctx) => HomeScreen(),
-            MyPermissionScreen.navN: (ctx) => MyPermissionScreen(),
-            OtherPermissionScreen.navN: (ctx) => OtherPermissionScreen(),
             LabScreen.navN: (ctx) => LabScreen(),
             PartnersScreen.navN: (ctx) => PartnersScreen(),
             MedicalInfoScreen.navN: (ctx) => MedicalInfoScreen(),

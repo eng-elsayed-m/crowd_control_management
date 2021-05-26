@@ -47,7 +47,7 @@ class LocationP with ChangeNotifier {
 
     final res = await http.get(url);
     if (res.statusCode >= 400) {
-      return null;
+      return;
     }
     final extractedData = json.decode(res.body) as Map<String, dynamic>;
     _address = extractedData["display_name"].toString();
