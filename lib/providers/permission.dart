@@ -26,7 +26,6 @@ class Permission with ChangeNotifier {
             "pnum": perData.pNum,
             "expiryTime": perData.expiryTime.toIso8601String(),
             "type": perData.type
-            // DateTime.now().add(Duration(hours: 4)).toIso8601String(),
           }));
       _permission = perData;
       autoTiming();

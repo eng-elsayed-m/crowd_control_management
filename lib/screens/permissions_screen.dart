@@ -43,9 +43,11 @@ class _PermissionScreenState extends State<PermissionScreen> {
     try {
       await Provider.of<Permission>(context, listen: false).createPermission(
         PermissionForm(
-            location: location,
+            location: _away
+                ? location
+                : Provider.of<LocationP>(context, listen: false).location,
             pNum: pNum,
-            expiryTime: DateTime.now().add(Duration(seconds: 50)),
+            expiryTime: DateTime.now().add(Duration(minutes: 10)),
             type: _away ? "Away" : "Around"),
       );
       setState(() {
@@ -101,7 +103,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                               center: LatLng(_loc.location.latitude,
                                   _loc.location.longitude),
                               zoom: _zoom,
-                              onTap: _handleTap,
+                              onTap: _away ? _handleTap : null,
                             ),
                             layers: [
                               TileLayerOptions(
@@ -109,7 +111,17 @@ class _PermissionScreenState extends State<PermissionScreen> {
                                       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                                   subdomains: ['a', 'b', 'c']),
                               CircleLayerOptions(
-                                circles: [_zone],
+                                circles: [
+                                  _away
+                                      ? _zone
+                                      : CircleMarker(
+                                          point: _loc.location,
+                                          color: Colors.blue.withOpacity(0.7),
+                                          borderStrokeWidth: 2,
+                                          useRadiusInMeter: true,
+                                          radius: 500 // 2000 meters | 2 km
+                                          )
+                                ],
                               ),
                               MarkerLayerOptions(markers: [
                                 Marker(
@@ -119,7 +131,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                                   width: 120,
                                   builder: (context) => Icon(
                                     Icons.home,
-                                    color: Colors.green,
+                                    color: Colors.purple,
                                   ),
                                 )
                               ])

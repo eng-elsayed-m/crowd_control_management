@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 50,
         color: Colors.blueGrey,
         backgroundColor: Colors.transparent,
-        buttonBackgroundColor: Colors.transparent,
+        buttonBackgroundColor: null,
         key: _bottomNavigationKey,
         index: 2,
         items: <Widget>[

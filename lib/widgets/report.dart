@@ -36,7 +36,33 @@ class ReportWidget extends StatelessWidget {
               title: Text(trans("Report case")),
               trailing: ElevatedButton(
                 child: Text(trans("Report emergency")),
-                onPressed: () {},
+                onPressed: () async {
+                  await showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                            elevation: 0,
+                            actionsOverflowDirection: VerticalDirection.up,
+                            backgroundColor: Colors.transparent,
+                            content: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.check,
+                                    color: Colors.lightGreenAccent,
+                                    size: 40,
+                                  ),
+                                  Text(
+                                      "Report has been sent, will be there as soon as we can .",
+                                      style: TextStyle(color: Colors.white)),
+                                  TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: Text("Thanks",
+                                          style:
+                                              TextStyle(color: Colors.white)))
+                                ]),
+                          ));
+                },
               ),
               subtitle: Text(trans("Will sent a message")),
             ),
