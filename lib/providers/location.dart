@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:latlong/latlong.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 class LocationP with ChangeNotifier {
   LatLng _location;
-  String _address = "Your current location , Loading ...";
+  String _address = "Your current location ,is loading...";
   LatLng get location {
     return _location;
   }
@@ -19,23 +19,23 @@ class LocationP with ChangeNotifier {
   Future<void> getCurrentLocation() async {
     if (!(_location == null)) return null;
     bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    Location loc = Location();
-    _serviceEnabled = await loc.serviceEnabled();
+    LocationPermission _permissionGranted;
+
+    _serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!_serviceEnabled) {
-      _serviceEnabled = await loc.requestService();
+      _serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!_serviceEnabled) {
         return null;
       }
     }
-    _permissionGranted = await loc.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await loc.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    _permissionGranted = await Geolocator.checkPermission();
+    if (_permissionGranted == LocationPermission.denied) {
+      _permissionGranted = await Geolocator.requestPermission();
+      if (_permissionGranted != LocationPermission.whileInUse) {
         return null;
       }
     }
-    final userlocation = await loc.getLocation();
+    final userlocation = await Geolocator.getCurrentPosition();
     _location = LatLng(userlocation.latitude, userlocation.longitude);
     notifyListeners();
     getAddress();
