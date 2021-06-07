@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:crowd_control_management/models/permission_form.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,9 +16,11 @@ class Permission with ChangeNotifier {
     return _permission;
   }
 
-  Future<void> createPermission(PermissionForm perData) async {
+  Future<bool> createPermission(PermissionForm perData) async {
     final url = Uri.parse(
         "https://crowd-control-management-default-rtdb.firebaseio.com//permissions/$userId.json?auth=$authToken");
+    bool _crowd = await checkPermissionsAround(perData.location);
+    if (!_crowd) return false;
     try {
       await http.put(url,
           body: json.encode({
@@ -33,6 +36,7 @@ class Permission with ChangeNotifier {
     } catch (e) {
       throw e;
     }
+    return true;
   }
 
   Future<void> autoCheck() async {
@@ -74,5 +78,22 @@ class Permission with ChangeNotifier {
     final timeToExpire =
         _permission.expiryTime.difference(DateTime.now()).inSeconds;
     _permissionTimer = Timer(Duration(seconds: timeToExpire), endPermission);
+  }
+
+  Future<bool> checkPermissionsAround(LatLng center) async {
+    final url = Uri.parse(
+        "https://crowd-control-management-default-rtdb.firebaseio.com//permissions.json?auth=$authToken");
+    final res = await http.get(url);
+    if (res.statusCode >= 400) return false;
+    final perData = json.decode(res.body) as Map<String, dynamic>;
+    final List<LatLng> allPermissions = [];
+    perData.forEach((key, value) {
+      final _d = Geolocator.distanceBetween(
+          center.latitude, center.longitude, value["lati"], value["long"]);
+      if (_d < 500) {
+        allPermissions.add(LatLng(value["lati"], value["long"]));
+      }
+    });
+    return allPermissions.length < 7;
   }
 }

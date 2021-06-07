@@ -2,7 +2,7 @@
     package="com.team.crowd_control_management">
    <uses-permission android:name="android.permission.INTERNET" />
    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="CC-Management"
         android:icon="@mipmap/ic_launcher">

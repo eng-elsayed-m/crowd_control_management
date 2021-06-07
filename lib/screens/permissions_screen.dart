@@ -41,36 +41,35 @@ class _PermissionScreenState extends State<PermissionScreen> {
       _loading = true;
     });
     try {
-      await Provider.of<Permission>(context, listen: false).createPermission(
+      final bool success = await Provider.of<Permission>(context, listen: false)
+          .createPermission(
         PermissionForm(
             location: _away
                 ? location
                 : Provider.of<LocationP>(context, listen: false).location,
             pNum: pNum,
-            expiryTime: DateTime.now().add(Duration(minutes: 10)),
+            expiryTime: DateTime.now().add(Duration(hours: 4)),
             type: _away ? "Away" : "Around"),
       );
-      setState(() {
-        _loading = false;
-      });
+      if (!success) await _showErrorDialog("It's Crowded");
     } catch (e) {
-      _showErrorDialog(e.toString());
-      setState(() {
-        _loading = false;
-      });
+      await _showErrorDialog(e.toString());
     }
+    setState(() {
+      _loading = false;
+    });
   }
 
-  void _showErrorDialog(String errorMessage) {
-    showDialog(
+  Future<void> _showErrorDialog(String errorMessage) {
+    return showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-              title: Text("Some thing went wrong!"),
+              title: Text("You can't get Permission"),
               content: Text(errorMessage),
               actions: [
                 TextButton(
                   child: Text("Try again"),
-                  onPressed: () => Navigator.of(ctx).pop(),
+                  onPressed: () => Navigator.of(context).pop(),
                 )
               ],
             ));

@@ -14,9 +14,11 @@ class ProfileWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
+          Container(
+            width: double.infinity,
+            height: 200,
             child: Card(
-              color: Theme.of(context).primaryColorLight,
+              color: Colors.cyan[100],
               elevation: 8,
               child: _user == null
                   ? Center(
@@ -24,10 +26,10 @@ class ProfileWidget extends StatelessWidget {
                     )
                   : Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 30),
+                          vertical: 20, horizontal: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

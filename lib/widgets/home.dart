@@ -86,42 +86,73 @@ class _HomeWidgetState extends State<HomeWidget> {
                       )
                     : Column(
                         children: [
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundColor: Theme.of(context).accentColor,
-                            child: CountdownTimer(
-                                endTime: perm.permission.expiryTime
-                                    .millisecondsSinceEpoch),
-                          ),
-                          Divider(),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 15),
-                            child: Row(
+                            padding: const EdgeInsets.only(
+                              top: 50.0,
+                            ),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              fit: StackFit.loose,
                               children: [
-                                Text("Name : "),
-                                Text(user.name),
-                                SizedBox(width: 50),
-                                Text("Id : "),
-                                Text(
-                                  user.pId,
-                                  style: TextStyle(
-                                    backgroundColor: Colors.green.shade200,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        top: BorderSide(
+                                            width: 10,
+                                            color: Colors.lightBlueAccent)),
                                   ),
-                                )
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.only(
+                                      top: 20.0,
+                                      bottom: 20,
+                                      left: 60,
+                                      right: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(user.name),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text("Id number : " + user.pId),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                              "For : ${perm.permission.pNum} persons"
+                                                  .toString()),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Text(
+                                              "Type : " + perm.permission.type),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Positioned(
+                                  top: -45,
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: CircleAvatar(
+                                      radius: 50,
+                                      backgroundColor:
+                                          Theme.of(context).accentColor,
+                                      child: CountdownTimer(
+                                          endTime: perm.permission.expiryTime
+                                              .millisecondsSinceEpoch),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Row(children: [
-                              Text("Number : ${perm.permission.pNum}"),
-                              SizedBox(width: 50),
-                              Text("Type : ${perm.permission.type}"),
-                            ]),
-                          ),
-                          Divider(),
                           Expanded(
                             child: FlutterMap(
                               mapController: MapController(),

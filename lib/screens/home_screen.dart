@@ -21,11 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
         height: 50,
         color: Colors.blueGrey,
         backgroundColor: Colors.transparent,
-        buttonBackgroundColor: null,
+        buttonBackgroundColor: Colors.white,
         key: _bottomNavigationKey,
         index: 2,
         items: <Widget>[

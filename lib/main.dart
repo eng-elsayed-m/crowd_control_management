@@ -1,17 +1,17 @@
-import 'package:crowd_control_management/app_localizations.dart';
-import 'package:crowd_control_management/providers/auth.dart';
-import 'package:crowd_control_management/providers/location.dart';
-import 'package:crowd_control_management/providers/permission.dart';
-import 'package:crowd_control_management/screens/Permissions_screen.dart';
-import 'package:crowd_control_management/screens/lab_screen.dart';
-import 'package:crowd_control_management/screens/medical_info_screen.dart';
-import 'package:crowd_control_management/screens/partners_screen.dart';
-import 'package:flutter/material.dart';
+import 'app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './screens/home_screen.dart';
-import './screens/intro_screen.dart';
-import './screens/register_screen.dart';
+import 'providers/auth.dart';
+import 'providers/location.dart';
+import 'providers/permission.dart';
+import 'screens/home_screen.dart';
+import 'screens/intro_screen.dart';
+import 'screens/register_screen.dart';
+import 'screens/Permissions_screen.dart';
+import 'screens/lab_screen.dart';
+import 'screens/medical_info_screen.dart';
+import 'screens/partners_screen.dart';
 
 void main() {
   runApp(MyApp());
