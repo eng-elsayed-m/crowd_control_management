@@ -88,10 +88,13 @@ class Permission with ChangeNotifier {
     final perData = json.decode(res.body) as Map<String, dynamic>;
     final List<LatLng> allPermissions = [];
     perData.forEach((key, value) {
-      final _d = Geolocator.distanceBetween(
-          center.latitude, center.longitude, value["lati"], value["long"]);
-      if (_d < 500) {
-        allPermissions.add(LatLng(value["lati"], value["long"]));
+      final endTime = DateTime.parse(value["expiryTime"].toString());
+      if (endTime.isAfter(DateTime.now())) {
+        final _d = Geolocator.distanceBetween(
+            center.latitude, center.longitude, value["lati"], value["long"]);
+        if (_d < 500) {
+          allPermissions.add(LatLng(value["lati"], value["long"]));
+        }
       }
     });
     return allPermissions.length < 7;
