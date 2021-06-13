@@ -86,6 +86,7 @@ class Permission with ChangeNotifier {
     final res = await http.get(url);
     if (res.statusCode >= 400) return false;
     final perData = json.decode(res.body) as Map<String, dynamic>;
+    if (perData.isEmpty) return false;
     final List<LatLng> allPermissions = [];
     perData.forEach((key, value) {
       final endTime = DateTime.parse(value["expiryTime"].toString());
