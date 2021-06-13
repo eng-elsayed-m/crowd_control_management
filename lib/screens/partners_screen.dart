@@ -37,18 +37,17 @@ class PartnersScreen extends StatelessWidget {
               children: [
                 Text(
                   trans("MIA"),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-                Text(
-                  trans("MH"),
-                ),
-                Text(
-                  trans("CSA"),
-                ),
+                Text(trans("MH"), style: Theme.of(context).textTheme.headline5),
+                Text(trans("CSA"),
+                    style: Theme.of(context).textTheme.headline5),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
                   trans("Pray"),
+                  style: Theme.of(context).textTheme.headline5,
                   textAlign: TextAlign.center,
                 ),
               ],

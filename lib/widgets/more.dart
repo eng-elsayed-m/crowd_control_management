@@ -18,7 +18,10 @@ class MoreWidget extends StatelessWidget {
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: Text(trans("Analysis lab")),
+                      leading: Text(
+                        trans("Analysis lab"),
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                       trailing: ElevatedButton(
                           onPressed: () =>
                               Navigator.of(context).pushNamed("lab-screen"),
@@ -28,7 +31,10 @@ class MoreWidget extends StatelessWidget {
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: Text(trans("Success Partners")),
+                      leading: Text(
+                        trans("Success Partners"),
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                       trailing: ElevatedButton(
                           onPressed: () => Navigator.of(context)
                               .pushNamed("partners-screen"),
@@ -38,7 +44,10 @@ class MoreWidget extends StatelessWidget {
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: Text(trans("Health information")),
+                      leading: Text(
+                        trans("Health information"),
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                       trailing: ElevatedButton(
                           onPressed: () => Navigator.of(context)
                               .pushNamed("medical-info-screen"),
@@ -48,7 +57,10 @@ class MoreWidget extends StatelessWidget {
                     elevation: 8,
                     color: Colors.cyan[100],
                     child: ListTile(
-                      leading: Text(trans("Help")),
+                      leading: Text(
+                        trans("Help"),
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                       trailing: ElevatedButton(
                           onPressed: () {}, child: Text(trans("Contact us"))),
                     )),

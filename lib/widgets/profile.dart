@@ -18,7 +18,7 @@ class ProfileWidget extends StatelessWidget {
             width: double.infinity,
             height: 200,
             child: Card(
-              color: Colors.cyan[100],
+              color: Theme.of(context).primaryColor,
               elevation: 8,
               child: _user == null
                   ? Center(
@@ -37,10 +37,12 @@ class ProfileWidget extends StatelessWidget {
                               Text(
                                 trans("Name"),
                                 textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 "${_user.name}",
                                 textAlign: TextAlign.right,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           ),
@@ -50,10 +52,12 @@ class ProfileWidget extends StatelessWidget {
                               Text(
                                 trans("Blood type"),
                                 textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 "${_user.blood}",
                                 textAlign: TextAlign.right,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           ),
@@ -63,10 +67,12 @@ class ProfileWidget extends StatelessWidget {
                               Text(
                                 trans("Identity number"),
                                 textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 "${_user.pId}",
                                 textAlign: TextAlign.right,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           ),
@@ -76,10 +82,12 @@ class ProfileWidget extends StatelessWidget {
                               Text(
                                 trans("Birth date"),
                                 textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 "${_user.bDate.toString().split(" ").first}",
                                 textAlign: TextAlign.right,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           ),
@@ -89,10 +97,12 @@ class ProfileWidget extends StatelessWidget {
                               Text(
                                 trans("Mobile"),
                                 textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 "${_user.phone}",
                                 textAlign: TextAlign.right,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           ),

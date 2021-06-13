@@ -17,7 +17,9 @@ class _LabScreenState extends State<LabScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(trans("Analytics Lab")),
+        title: Text(
+          trans("Analytics Lab"),
+        ),
       ),
       body: Column(
         children: [
@@ -34,7 +36,7 @@ class _LabScreenState extends State<LabScreen> {
                     child: Text(
                       trans("Note"),
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
                 ),
@@ -97,7 +99,9 @@ class _LabScreenState extends State<LabScreen> {
                                           ));
                                 },
                                 child: Text(trans("Book"))),
-                            trailing: Text("Request examination"),
+                            trailing: Text(
+                              "Request examination",
+                            ),
                           )
                         : Padding(
                             padding: EdgeInsets.all(10.0),

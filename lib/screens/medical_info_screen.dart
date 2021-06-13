@@ -22,6 +22,7 @@ class MedicalInfoScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   trans("Advice1"),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               ),
             ),
@@ -29,36 +30,32 @@ class MedicalInfoScreen extends StatelessWidget {
               elevation: 5,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  trans("Advice2"),
-                ),
+                child: Text(trans("Advice2"),
+                    style: Theme.of(context).textTheme.headline5),
               ),
             ),
             Card(
               elevation: 5,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  trans("Advice3"),
-                ),
+                child: Text(trans("Advice3"),
+                    style: Theme.of(context).textTheme.headline5),
               ),
             ),
             Card(
               elevation: 5,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  trans("Advice4"),
-                ),
+                child: Text(trans("Advice4"),
+                    style: Theme.of(context).textTheme.headline5),
               ),
             ),
             Card(
               elevation: 5,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  trans("Advice5"),
-                ),
+                child: Text(trans("Advice5"),
+                    style: Theme.of(context).textTheme.headline5),
               ),
             ),
             Flexible(

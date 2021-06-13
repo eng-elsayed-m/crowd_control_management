@@ -51,12 +51,14 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
           title: 'CC-Management',
           theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
-            accentColor: Colors.lightBlueAccent,
-            pageTransitionsTheme: PageTransitionsTheme(builders: {
-              TargetPlatform.android: ZoomPageTransitionsBuilder()
-            }),
-          ),
+              primarySwatch: Colors.blueGrey,
+              accentColor: Colors.lightBlueAccent,
+              textTheme: TextTheme(
+                  headline6: TextStyle(color: Colors.white),
+                  headline5: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey,
+                  ))),
           home: _auth.isAuth
               ? HomeScreen()
               : FutureBuilder(

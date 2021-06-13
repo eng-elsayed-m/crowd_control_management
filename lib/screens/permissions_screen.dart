@@ -180,8 +180,9 @@ class _PermissionScreenState extends State<PermissionScreen> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  Text("For"),
                   IconButton(
                       icon: Icon(
                         Icons.add_circle,
@@ -207,6 +208,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           });
                         }
                       }),
+                  Text("Persons")
                 ],
               ),
               _loading

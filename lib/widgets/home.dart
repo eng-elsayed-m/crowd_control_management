@@ -102,52 +102,55 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             color: Colors.lightBlueAccent)),
                                   ),
                                   width: double.infinity,
-                                  padding: const EdgeInsets.only(
-                                      top: 20.0,
-                                      bottom: 20,
-                                      left: 60,
-                                      right: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 20.0,
+                                    horizontal: 10,
+                                  ),
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text(user.name),
+                                      Text(
+                                        "Name : ${user.name}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(color: Colors.blueGrey),
+                                      ),
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Text("Id number : " + user.pId),
+                                      Text(
+                                        "Id : " + user.pId,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(color: Colors.blueGrey),
+                                      ),
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                              "For : ${perm.permission.pNum} persons"
-                                                  .toString()),
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          Text(
-                                              "Type : " + perm.permission.type),
-                                        ],
+                                      Text(
+                                        "For ${perm.permission.pNum} persons to move ${perm.permission.type} "
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(color: Colors.blueGrey),
                                       )
                                     ],
                                   ),
                                 ),
                                 Positioned(
                                   top: -45,
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: CircleAvatar(
-                                      radius: 50,
-                                      backgroundColor:
-                                          Theme.of(context).accentColor,
-                                      child: CountdownTimer(
-                                          endTime: perm.permission.expiryTime
-                                              .millisecondsSinceEpoch),
-                                    ),
+                                  right: 0,
+                                  child: CircleAvatar(
+                                    radius: 50,
+                                    backgroundColor:
+                                        Theme.of(context).accentColor,
+                                    child: CountdownTimer(
+                                        endTime: perm.permission.expiryTime
+                                            .millisecondsSinceEpoch),
                                   ),
                                 ),
                               ],
